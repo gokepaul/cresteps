@@ -43,7 +43,7 @@ export default function Hero() {
         <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 items-center">
           <Link
             href="/shop"
-            className="w-full sm:w-auto inline-block bg-gold hover:bg-[#b37518] text-nearblack font-bold text-sm sm:text-base px-8 sm:px-10 py-3.5 sm:py-4 rounded-lg transition-colors cursor-pointer shadow-xl"
+            className="w-full sm:w-auto inline-block bg-white hover:bg-gray-100 text-nearblack font-bold text-sm sm:text-base px-8 sm:px-10 py-3.5 sm:py-4 rounded-lg transition-colors cursor-pointer shadow-xl"
           >
             Shop Now
           </Link>
