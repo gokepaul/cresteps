@@ -48,7 +48,7 @@ export default function AboutPage() {
     <div className="min-h-screen bg-offwhite">
       {/* Hero */}
       <div className="bg-maroon py-20 text-center px-4">
-        <span className="inline-block text-gold text-xs font-bold uppercase tracking-widest mb-4">
+        <span className="inline-block text-sienna text-xs font-bold uppercase tracking-widest mb-4">
           Our Story
         </span>
         <h1
@@ -77,7 +77,7 @@ export default function AboutPage() {
 
             {/* Text */}
             <div>
-              <span className="inline-block text-gold text-xs font-bold uppercase tracking-widest mb-4">
+              <span className="inline-block text-sienna text-xs font-bold uppercase tracking-widest mb-4">
                 The Founder
               </span>
               <h2

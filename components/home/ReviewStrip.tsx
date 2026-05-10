@@ -48,7 +48,7 @@ export default function ReviewStrip() {
           {reviews.map((review) => (
             <div
               key={review.name}
-              className="bg-white rounded-2xl shadow-sm p-6 border border-gray-100"
+              className="bg-white rounded-2xl shadow-sm p-6 border border-gray-100 border-l-4 border-l-sienna"
             >
               <Stars count={review.rating} />
               <p className="text-gray-600 text-sm leading-relaxed mb-4">

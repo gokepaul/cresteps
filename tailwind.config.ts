@@ -11,6 +11,7 @@ const config: Config = {
       colors: {
         maroon: "#7B1010",
         gold: "#C8861A",
+        sienna: "#8B3A1A",
         cream: "#FFF8EE",
         offwhite: "#FAFAF8",
         nearblack: "#1A1A1A",

@@ -18,7 +18,7 @@ export default function BrandStory() {
 
           {/* Text */}
           <div className="order-1 lg:order-2">
-            <span className="inline-block text-gold text-xs font-bold uppercase tracking-widest mb-4">
+            <span className="inline-block text-sienna text-xs font-bold uppercase tracking-widest mb-4">
               Our Story
             </span>
             <h2

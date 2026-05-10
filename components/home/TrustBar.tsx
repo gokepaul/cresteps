@@ -11,7 +11,7 @@ export default function TrustBar() {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-12">
           {items.map((item, i) => (
             <div key={i} className="flex items-center gap-2 text-maroon">
-              <span className="text-gold text-lg">{item.icon}</span>
+              <span className="text-sienna text-lg">{item.icon}</span>
               <span className="text-sm font-semibold tracking-wide">
                 {item.label}
               </span>
