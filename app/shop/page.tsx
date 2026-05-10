@@ -86,7 +86,7 @@ export default function ShopPage() {
   return (
     <div className="min-h-screen bg-offwhite">
       {/* Header */}
-      <div className="bg-maroon py-16 text-center">
+      <div className="bg-maroon pt-24 pb-14 text-center px-4">
         <h1
           className="text-5xl font-bold text-white mb-2"
           style={{ fontFamily: "var(--font-serif)" }}
@@ -160,14 +160,14 @@ export default function ShopPage() {
                   {product.price}
                 </p>
                 <div className="flex gap-2">
-                  <button className="flex-1 bg-gold hover:bg-[#b37518] text-nearblack font-semibold text-sm px-4 py-2 rounded-lg transition-colors cursor-pointer">
+                  <button className="flex-1 bg-gold hover:bg-[#b37518] text-nearblack font-semibold text-sm px-4 py-3 rounded-lg transition-colors cursor-pointer">
                     View Details
                   </button>
                   <a
                     href={product.waLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 text-center text-sm font-semibold text-maroon border border-maroon px-4 py-2 rounded-lg hover:bg-maroon hover:text-white transition-colors"
+                    className="flex-1 text-center text-sm font-semibold text-maroon border border-maroon px-4 py-3 rounded-lg hover:bg-maroon hover:text-white transition-colors"
                   >
                     DM to Order
                   </a>

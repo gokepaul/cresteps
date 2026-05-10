@@ -71,7 +71,7 @@ export default function FeaturedProducts() {
                 <div className="flex gap-2">
                   <button
                     disabled
-                    className="flex-1 bg-gold/20 text-gold font-semibold text-sm px-4 py-2 rounded-lg cursor-not-allowed opacity-70"
+                    className="flex-1 bg-gold/20 text-gold font-semibold text-sm px-4 py-3 rounded-lg cursor-not-allowed opacity-70"
                     title="Online cart coming soon"
                   >
                     Add to Cart
@@ -80,7 +80,7 @@ export default function FeaturedProducts() {
                     href={product.waLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 text-center text-sm font-semibold text-maroon border border-maroon px-4 py-2 rounded-lg hover:bg-maroon hover:text-white transition-colors"
+                    className="flex-1 text-center text-sm font-semibold text-maroon border border-maroon px-4 py-3 rounded-lg hover:bg-maroon hover:text-white transition-colors"
                   >
                     DM to Order
                   </a>

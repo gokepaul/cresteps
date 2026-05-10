@@ -32,7 +32,7 @@ export default function CustomOrdersPage() {
   return (
     <div className="min-h-screen bg-offwhite">
       {/* Header */}
-      <div className="bg-maroon py-16 text-center px-4">
+      <div className="bg-maroon pt-24 pb-14 text-center px-4">
         <h1
           className="text-5xl font-bold text-white mb-3"
           style={{ fontFamily: "var(--font-serif)" }}

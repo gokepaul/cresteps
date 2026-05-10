@@ -47,7 +47,7 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen bg-offwhite">
       {/* Hero */}
-      <div className="bg-maroon py-20 text-center px-4">
+      <div className="bg-maroon pt-24 pb-14 text-center px-4">
         <span className="inline-block text-sienna text-xs font-bold uppercase tracking-widest mb-4">
           Our Story
         </span>

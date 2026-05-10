@@ -1,6 +1,6 @@
 export default function WhatsAppButton() {
   return (
-    <div className="fixed bottom-6 right-6 z-50 group">
+    <div className="fixed bottom-8 right-5 sm:bottom-8 sm:right-8 z-50 group">
       <a
         href="https://wa.me/2341234567890"
         target="_blank"

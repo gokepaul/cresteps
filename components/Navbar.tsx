@@ -24,7 +24,7 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`sticky top-0 z-50 transition-all duration-300 backdrop-blur-md ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 backdrop-blur-md ${
         atTop
           ? "bg-black/20 border-b border-white/10"
           : "bg-cream/90 border-b border-maroon/10 shadow-sm"
