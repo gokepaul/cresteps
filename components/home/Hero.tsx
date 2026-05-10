@@ -3,22 +3,22 @@ import Link from "next/link";
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center bg-maroon overflow-hidden">
-      {/* Subtle background texture */}
-      <div className="absolute inset-0 opacity-10">
-        <div
-          className="w-full h-full"
-          style={{
-            backgroundImage:
-              "repeating-linear-gradient(45deg, #C8861A 0, #C8861A 1px, transparent 0, transparent 50%)",
-            backgroundSize: "20px 20px",
-          }}
-        />
-      </div>
+    <section className="relative min-h-screen flex items-end md:items-center overflow-hidden">
+      {/* Full-bleed background image */}
+      <Image
+        src="https://res.cloudinary.com/dcayv2r5u/image/upload/v1778414184/can_we_change_this_image_202605101255_e7tdpf.jpg"
+        alt="Cresteps handcrafted leather shoes"
+        fill
+        className="object-cover object-center"
+        priority
+      />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center w-full">
-        {/* Text */}
-        <div>
+      {/* Warm dark gradient — strong at bottom where text sits, fades up */}
+      <div className="absolute inset-0 bg-gradient-to-t from-nearblack/95 via-nearblack/55 to-maroon/25" />
+
+      {/* Content */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 md:pb-0 md:py-32">
+        <div className="max-w-2xl">
           <span className="inline-block text-cream text-xs font-semibold uppercase tracking-widest mb-6">
             ✦ Handcrafted in Nigeria
           </span>
@@ -46,19 +46,6 @@ export default function Hero() {
             >
               See How We Make It
             </Link>
-          </div>
-        </div>
-
-        {/* Hero image */}
-        <div className="flex justify-center lg:justify-end">
-          <div className="relative w-full max-w-sm h-96 lg:h-[480px] rounded-2xl overflow-hidden shadow-2xl">
-            <Image
-              src="https://picsum.photos/seed/leather-shoes-hero/600/700"
-              alt="Cresteps handcrafted leather shoes"
-              fill
-              className="object-cover"
-              priority
-            />
           </div>
         </div>
       </div>
