@@ -1,10 +1,12 @@
-const placeholderGradients = [
-  "linear-gradient(135deg, #7B1010 0%, #C8861A 100%)",
-  "linear-gradient(135deg, #C8861A 0%, #FFF8EE 100%)",
-  "linear-gradient(135deg, #1A1A1A 0%, #7B1010 100%)",
-  "linear-gradient(135deg, #C8861A 0%, #7B1010 100%)",
-  "linear-gradient(135deg, #FFF8EE 0%, #C8861A 100%)",
-  "linear-gradient(135deg, #7B1010 0%, #1A1A1A 100%)",
+import Image from "next/image";
+
+const placeholderImages = [
+  { seed: "insta-shoes-1", alt: "Leather shoes detail" },
+  { seed: "insta-craft-2", alt: "Crafting process" },
+  { seed: "insta-worn-3", alt: "Shoes being worn" },
+  { seed: "insta-belt-4", alt: "Leather belt" },
+  { seed: "insta-slipper-5", alt: "Slide slippers" },
+  { seed: "insta-workshop-6", alt: "Workshop scene" },
 ];
 
 export default function InstagramFeed() {
@@ -22,30 +24,21 @@ export default function InstagramFeed() {
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 mb-10">
-          {placeholderGradients.map((gradient, i) => (
+          {placeholderImages.map((img, i) => (
             <a
               key={i}
               href="https://instagram.com/cresteps"
               target="_blank"
               rel="noopener noreferrer"
-              className="block aspect-square rounded-xl overflow-hidden hover:opacity-90 transition-opacity shadow-sm"
-              style={{ background: gradient }}
-              aria-label={`Instagram post ${i + 1}`}
+              className="relative block aspect-square rounded-xl overflow-hidden hover:opacity-90 transition-opacity shadow-sm"
+              aria-label={img.alt}
             >
-              <div className="w-full h-full flex items-center justify-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="rgba(255,255,255,0.5)"
-                  strokeWidth="1.5"
-                  className="w-8 h-8"
-                >
-                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-                </svg>
-              </div>
+              <Image
+                src={`https://picsum.photos/seed/${img.seed}/400/400`}
+                alt={img.alt}
+                fill
+                className="object-cover"
+              />
             </a>
           ))}
         </div>

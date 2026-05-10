@@ -1,23 +1,25 @@
+import Image from "next/image";
+
 const products = [
   {
     name: "Classic Oxford",
     price: "₦35,000",
     category: "Shoes",
-    gradient: "linear-gradient(135deg, #7B1010 0%, #C8861A 100%)",
+    image: "https://picsum.photos/seed/classic-oxford/400/300",
     waLink: "https://wa.me/2341234567890?text=I'm interested in the Classic Oxford",
   },
   {
     name: "Slide Slippers",
     price: "₦18,000",
     category: "Slippers",
-    gradient: "linear-gradient(135deg, #C8861A 0%, #FFF8EE 100%)",
+    image: "https://picsum.photos/seed/slide-slippers/400/300",
     waLink: "https://wa.me/2341234567890?text=I'm interested in the Slide Slippers",
   },
   {
     name: "Leather Belt",
     price: "₦12,000",
     category: "Belts",
-    gradient: "linear-gradient(135deg, #1A1A1A 0%, #7B1010 100%)",
+    image: "https://picsum.photos/seed/leather-belt/400/300",
     waLink: "https://wa.me/2341234567890?text=I'm interested in the Leather Belt",
   },
 ];
@@ -44,15 +46,13 @@ export default function FeaturedProducts() {
               key={product.name}
               className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-gray-100"
             >
-              {/* Placeholder image */}
-              <div
-                className="h-56 flex items-center justify-center text-white/70 text-sm"
-                style={{ background: product.gradient }}
-              >
-                <div className="text-center">
-                  <div className="text-4xl mb-2">👟</div>
-                  <p className="text-white/80 text-xs">{product.name}</p>
-                </div>
+              <div className="relative h-56 overflow-hidden">
+                <Image
+                  src={product.image}
+                  alt={product.name}
+                  fill
+                  className="object-cover"
+                />
               </div>
 
               <div className="p-5">

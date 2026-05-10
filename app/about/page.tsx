@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 const craftSteps = [
@@ -65,20 +66,13 @@ export default function AboutPage() {
       <section className="py-16 md:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Image placeholder */}
-            <div
-              className="h-80 lg:h-[460px] rounded-2xl shadow-lg flex items-center justify-center"
-              style={{
-                background:
-                  "linear-gradient(135deg, #C8861A 0%, #7B1010 100%)",
-              }}
-            >
-              <div className="text-center">
-                <div className="text-6xl mb-4">👤</div>
-                <p className="text-white/80 font-medium text-sm">
-                  Founder Photo
-                </p>
-              </div>
+            <div className="relative h-80 lg:h-[460px] rounded-2xl overflow-hidden shadow-lg">
+              <Image
+                src="https://picsum.photos/seed/cresteps-founder/600/700"
+                alt="Cresteps founder"
+                fill
+                className="object-cover"
+              />
             </div>
 
             {/* Text */}

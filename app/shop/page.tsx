@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import SizeGuideModal from "@/components/SizeGuideModal";
 
 type Category = "All" | "Shoes" | "Slippers" | "Belts";
@@ -10,63 +11,63 @@ const products = [
     name: "Classic Oxford",
     price: "₦35,000",
     category: "Shoes" as Category,
-    gradient: "linear-gradient(135deg, #7B1010 0%, #C8861A 100%)",
+    image: "https://picsum.photos/seed/shop-oxford/400/300",
     waLink: "https://wa.me/2341234567890?text=I'm interested in the Classic Oxford",
   },
   {
     name: "Derby Brogues",
     price: "₦42,000",
     category: "Shoes" as Category,
-    gradient: "linear-gradient(135deg, #1A1A1A 0%, #7B1010 100%)",
+    image: "https://picsum.photos/seed/shop-derby/400/300",
     waLink: "https://wa.me/2341234567890?text=I'm interested in the Derby Brogues",
   },
   {
     name: "Chelsea Boot",
     price: "₦55,000",
     category: "Shoes" as Category,
-    gradient: "linear-gradient(135deg, #7B1010 0%, #1A1A1A 100%)",
+    image: "https://picsum.photos/seed/shop-chelsea/400/300",
     waLink: "https://wa.me/2341234567890?text=I'm interested in the Chelsea Boot",
   },
   {
     name: "Slide Slippers",
     price: "₦18,000",
     category: "Slippers" as Category,
-    gradient: "linear-gradient(135deg, #C8861A 0%, #FFF8EE 100%)",
+    image: "https://picsum.photos/seed/shop-slide/400/300",
     waLink: "https://wa.me/2341234567890?text=I'm interested in the Slide Slippers",
   },
   {
     name: "Mule Slippers",
     price: "₦22,000",
     category: "Slippers" as Category,
-    gradient: "linear-gradient(135deg, #FFF8EE 0%, #C8861A 100%)",
+    image: "https://picsum.photos/seed/shop-mule/400/300",
     waLink: "https://wa.me/2341234567890?text=I'm interested in the Mule Slippers",
   },
   {
     name: "Flat Sandal",
     price: "₦15,000",
     category: "Slippers" as Category,
-    gradient: "linear-gradient(135deg, #C8861A 0%, #7B1010 100%)",
+    image: "https://picsum.photos/seed/shop-sandal/400/300",
     waLink: "https://wa.me/2341234567890?text=I'm interested in the Flat Sandal",
   },
   {
     name: "Classic Belt",
     price: "₦12,000",
     category: "Belts" as Category,
-    gradient: "linear-gradient(135deg, #1A1A1A 0%, #C8861A 100%)",
+    image: "https://picsum.photos/seed/shop-belt-classic/400/300",
     waLink: "https://wa.me/2341234567890?text=I'm interested in the Classic Belt",
   },
   {
     name: "Wide Belt",
     price: "₦16,000",
     category: "Belts" as Category,
-    gradient: "linear-gradient(135deg, #7B1010 0%, #C8861A 100%)",
+    image: "https://picsum.photos/seed/shop-belt-wide/400/300",
     waLink: "https://wa.me/2341234567890?text=I'm interested in the Wide Belt",
   },
   {
     name: "Braided Belt",
     price: "₦14,000",
     category: "Belts" as Category,
-    gradient: "linear-gradient(135deg, #C8861A 0%, #1A1A1A 100%)",
+    image: "https://picsum.photos/seed/shop-belt-braided/400/300",
     waLink: "https://wa.me/2341234567890?text=I'm interested in the Braided Belt",
   },
 ];
@@ -136,17 +137,13 @@ export default function ShopPage() {
               key={product.name}
               className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-gray-100"
             >
-              {/* Placeholder image */}
-              <div
-                className="h-56 flex items-center justify-center"
-                style={{ background: product.gradient }}
-              >
-                <div className="text-center">
-                  <div className="text-4xl mb-2">
-                    {product.category === "Belts" ? "🥋" : "👟"}
-                  </div>
-                  <p className="text-white/80 text-xs">{product.name}</p>
-                </div>
+              <div className="relative h-56 overflow-hidden">
+                <Image
+                  src={product.image}
+                  alt={product.name}
+                  fill
+                  className="object-cover"
+                />
               </div>
 
               <div className="p-5">

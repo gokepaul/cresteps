@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Hero() {
@@ -48,18 +49,16 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Placeholder image */}
+        {/* Hero image */}
         <div className="flex justify-center lg:justify-end">
-          <div
-            className="w-full max-w-sm h-96 lg:h-[480px] rounded-2xl shadow-2xl flex items-center justify-center text-white/60 text-sm font-medium"
-            style={{
-              background: "linear-gradient(135deg, #C8861A 0%, #7B1010 100%)",
-            }}
-          >
-            <div className="text-center">
-              <div className="text-6xl mb-4">👟</div>
-              <p className="text-white/80 font-medium">Product Photo</p>
-            </div>
+          <div className="relative w-full max-w-sm h-96 lg:h-[480px] rounded-2xl overflow-hidden shadow-2xl">
+            <Image
+              src="https://picsum.photos/seed/leather-shoes-hero/600/700"
+              alt="Cresteps handcrafted leather shoes"
+              fill
+              className="object-cover"
+              priority
+            />
           </div>
         </div>
       </div>

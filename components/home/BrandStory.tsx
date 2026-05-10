@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export default function BrandStory() {
@@ -5,19 +6,14 @@ export default function BrandStory() {
     <section className="bg-offwhite py-16 md:py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Placeholder image */}
-          <div
-            className="h-80 lg:h-[440px] rounded-2xl shadow-lg flex items-center justify-center text-white/70 order-2 lg:order-1"
-            style={{
-              background: "linear-gradient(135deg, #C8861A 0%, #7B1010 100%)",
-            }}
-          >
-            <div className="text-center">
-              <div className="text-6xl mb-4">🔨</div>
-              <p className="text-white/80 text-sm font-medium">
-                Our workshop
-              </p>
-            </div>
+          {/* Workshop image */}
+          <div className="relative h-80 lg:h-[440px] rounded-2xl overflow-hidden shadow-lg order-2 lg:order-1">
+            <Image
+              src="https://picsum.photos/seed/leather-workshop/800/600"
+              alt="Our leather workshop"
+              fill
+              className="object-cover"
+            />
           </div>
 
           {/* Text */}
