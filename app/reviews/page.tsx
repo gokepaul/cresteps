@@ -53,7 +53,7 @@ function Stars({ count }: { count: number }) {
   return (
     <div className="flex gap-0.5 mb-3">
       {Array.from({ length: count }).map((_, i) => (
-        <span key={i} className="text-gold text-lg">
+        <span key={i} className="text-sienna text-lg">
           ★
         </span>
       ))}
@@ -82,7 +82,7 @@ export default function ReviewsPage() {
         <div className="flex flex-col items-center mb-14 text-center">
           <div className="flex gap-1 mb-2">
             {[1, 2, 3, 4, 5].map((i) => (
-              <span key={i} className="text-gold text-3xl">
+              <span key={i} className="text-sienna text-3xl">
                 ★
               </span>
             ))}
@@ -111,7 +111,7 @@ export default function ReviewsPage() {
                   <p className="font-semibold text-nearblack text-sm">
                     {review.name}
                   </p>
-                  <p className="text-gray-400 text-xs">{review.location}</p>
+                  <p className="text-gray-500 text-xs">{review.location}</p>
                 </div>
               </div>
 
@@ -122,7 +122,7 @@ export default function ReviewsPage() {
               </p>
 
               <div className="pt-3 border-t border-gray-100">
-                <span className="text-xs font-semibold text-gold bg-gold/10 px-2 py-1 rounded-full">
+                <span className="text-xs font-semibold text-sienna bg-sienna/10 px-2 py-1 rounded-full">
                   Purchased: {review.product}
                 </span>
               </div>
@@ -146,7 +146,7 @@ export default function ReviewsPage() {
             href="https://wa.me/2341234567890?text=Hi! I'd like to leave a review for Cresteps."
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#1DA851] text-white font-semibold px-7 py-3 rounded-lg transition-colors cursor-pointer"
+            className="inline-flex items-center gap-2 bg-maroon hover:bg-[#5e0c0c] text-white font-semibold px-7 py-3 rounded-lg transition-colors cursor-pointer"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

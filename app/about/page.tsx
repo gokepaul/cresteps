@@ -197,7 +197,7 @@ export default function AboutPage() {
         </p>
         <Link
           href="/shop"
-          className="inline-block bg-gold hover:bg-[#b37518] text-white font-semibold px-8 py-3 rounded-lg transition-colors cursor-pointer"
+          className="inline-block bg-gold hover:bg-[#b37518] text-nearblack font-semibold px-8 py-3 rounded-lg transition-colors cursor-pointer"
         >
           Shop Now
         </Link>

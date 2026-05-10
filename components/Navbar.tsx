@@ -44,7 +44,7 @@ export default function Navbar() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Chat on WhatsApp"
-              className="ml-2 flex items-center justify-center w-9 h-9 rounded-full bg-[#25D366] hover:bg-[#1DA851] transition-colors"
+              className="ml-2 flex items-center justify-center w-9 h-9 rounded-full bg-[#075E54] hover:bg-[#054d43] transition-colors"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -93,7 +93,7 @@ export default function Navbar() {
             href="https://wa.me/2341234567890"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 text-[#25D366] font-medium"
+            className="flex items-center gap-2 text-maroon font-medium"
             onClick={() => setMenuOpen(false)}
           >
             <svg

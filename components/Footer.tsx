@@ -164,11 +164,11 @@ export default function Footer() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="your@email.com"
                   required
-                  className="bg-gray-800 text-white placeholder-gray-500 text-sm px-3 py-2 rounded border border-gray-700 focus:border-gold focus:outline-none"
+                  className="bg-gray-800 text-white placeholder-gray-400 text-sm px-3 py-2 rounded border border-gray-700 focus:border-gold focus:outline-none"
                 />
                 <button
                   type="submit"
-                  className="bg-gold hover:bg-[#b37518] text-white font-semibold text-sm px-4 py-2 rounded transition-colors cursor-pointer"
+                  className="bg-gold hover:bg-[#b37518] text-nearblack font-semibold text-sm px-4 py-2 rounded transition-colors cursor-pointer"
                 >
                   Get Free Leather Care Guide
                 </button>
@@ -177,7 +177,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-gray-800 mt-12 pt-6 text-center text-xs text-gray-500">
+        <div className="border-t border-gray-800 mt-12 pt-6 text-center text-xs text-gray-400">
           © 2024 Cresteps. All rights reserved. Built by{" "}
           <a
             href="https://1204studios.com"

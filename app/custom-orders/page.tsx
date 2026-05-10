@@ -65,7 +65,7 @@ export default function CustomOrdersPage() {
                   href="https://wa.me/2341234567890"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-block bg-[#25D366] hover:bg-[#1DA851] text-white font-semibold px-6 py-3 rounded-lg transition-colors cursor-pointer"
+                  className="inline-block bg-maroon hover:bg-[#5e0c0c] text-white font-semibold px-6 py-3 rounded-lg transition-colors cursor-pointer"
                 >
                   Chat on WhatsApp
                 </a>
@@ -95,7 +95,7 @@ export default function CustomOrdersPage() {
                       onChange={handleChange}
                       required
                       placeholder="e.g. Adaeze Nwosu"
-                      className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm text-nearblack placeholder-gray-400 focus:border-gold focus:outline-none transition-colors"
+                      className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm text-nearblack placeholder-gray-500 focus:border-gold focus:outline-none transition-colors"
                     />
                   </div>
 
@@ -115,7 +115,7 @@ export default function CustomOrdersPage() {
                       onChange={handleChange}
                       required
                       placeholder="+234 801 234 5678"
-                      className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm text-nearblack placeholder-gray-400 focus:border-gold focus:outline-none transition-colors"
+                      className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm text-nearblack placeholder-gray-500 focus:border-gold focus:outline-none transition-colors"
                     />
                   </div>
 
@@ -182,7 +182,7 @@ export default function CustomOrdersPage() {
                       value={formData.colourPreference}
                       onChange={handleChange}
                       placeholder="e.g. Tan brown, black, cognac..."
-                      className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm text-nearblack placeholder-gray-400 focus:border-gold focus:outline-none transition-colors"
+                      className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm text-nearblack placeholder-gray-500 focus:border-gold focus:outline-none transition-colors"
                     />
                   </div>
 
@@ -201,7 +201,7 @@ export default function CustomOrdersPage() {
                       onChange={handleChange}
                       rows={4}
                       placeholder="Any special requirements, style references, or questions..."
-                      className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm text-nearblack placeholder-gray-400 focus:border-gold focus:outline-none transition-colors resize-none"
+                      className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm text-nearblack placeholder-gray-500 focus:border-gold focus:outline-none transition-colors resize-none"
                     />
                   </div>
 
@@ -227,7 +227,7 @@ export default function CustomOrdersPage() {
               </h3>
               <ul className="space-y-4">
                 <li className="flex items-start gap-3">
-                  <span className="text-gold text-lg mt-0.5">✦</span>
+                  <span className="text-sienna text-lg mt-0.5">✦</span>
                   <div>
                     <p className="text-sm font-semibold text-nearblack mb-1">
                       Perfect fit, every time
@@ -239,7 +239,7 @@ export default function CustomOrdersPage() {
                   </div>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="text-gold text-lg mt-0.5">✦</span>
+                  <span className="text-sienna text-lg mt-0.5">✦</span>
                   <div>
                     <p className="text-sm font-semibold text-nearblack mb-1">
                       Choose your leather & colour
@@ -251,7 +251,7 @@ export default function CustomOrdersPage() {
                   </div>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="text-gold text-lg mt-0.5">✦</span>
+                  <span className="text-sienna text-lg mt-0.5">✦</span>
                   <div>
                     <p className="text-sm font-semibold text-nearblack mb-1">
                       Unique to you
@@ -272,7 +272,7 @@ export default function CustomOrdersPage() {
                   href="https://wa.me/2341234567890"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-[#25D366] font-semibold text-sm hover:underline"
+                  className="flex items-center gap-2 text-maroon font-semibold text-sm hover:underline"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

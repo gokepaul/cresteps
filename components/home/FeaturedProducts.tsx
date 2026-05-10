@@ -56,7 +56,7 @@ export default function FeaturedProducts() {
               </div>
 
               <div className="p-5">
-                <span className="inline-block text-xs font-semibold text-gold bg-gold/10 px-2 py-0.5 rounded-full mb-2">
+                <span className="inline-block text-xs font-semibold text-sienna bg-sienna/10 px-2 py-0.5 rounded-full mb-2">
                   {product.category}
                 </span>
                 <h3
@@ -80,7 +80,7 @@ export default function FeaturedProducts() {
                     href={product.waLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 text-center text-sm font-semibold text-[#25D366] border border-[#25D366] px-4 py-2 rounded-lg hover:bg-[#25D366] hover:text-white transition-colors"
+                    className="flex-1 text-center text-sm font-semibold text-maroon border border-maroon px-4 py-2 rounded-lg hover:bg-maroon hover:text-white transition-colors"
                   >
                     DM to Order
                   </a>

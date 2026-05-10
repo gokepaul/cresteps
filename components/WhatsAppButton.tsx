@@ -6,7 +6,7 @@ export default function WhatsAppButton() {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Order via WhatsApp"
-        className="flex items-center justify-center w-14 h-14 rounded-full bg-[#25D366] hover:bg-[#1DA851] shadow-lg transition-all duration-200 hover:scale-105"
+        className="flex items-center justify-center w-14 h-14 rounded-full bg-[#075E54] hover:bg-[#054d43] shadow-lg transition-all duration-200 hover:scale-105"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
