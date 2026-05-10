@@ -1,24 +1,27 @@
-import Image from "next/image";
 import Link from "next/link";
 
 export default function Hero() {
   return (
     <section className="relative h-[100svh] min-h-[600px] flex items-start overflow-hidden">
-      {/* Full-bleed image — fills entire viewport including behind the navbar */}
-      <Image
-        src="https://res.cloudinary.com/dcayv2r5u/image/upload/v1778414184/can_we_change_this_image_202605101255_e7tdpf.jpg"
-        alt="Cresteps handcrafted leather shoes"
-        fill
-        className="object-cover object-center"
-        priority
-      />
+      {/* Looping background video */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover object-center"
+      >
+        <source
+          src="https://res.cloudinary.com/dcayv2r5u/video/upload/v1778441766/bacc03fd-5b32-4d9b-8300-d9a69cda6e61-2026-05-10_dtawxj.mp4"
+          type="video/mp4"
+        />
+      </video>
 
-      {/* Lighter overlay — dark at top for text, transparent at bottom so shoes show through clearly */}
+      {/* Gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/30 to-black/10" />
 
-      {/* Content — pushed below the fixed navbar (pt-20 = 80px ≥ navbar 64px) */}
+      {/* Content */}
       <div className="relative z-10 w-full text-center px-5 sm:px-8 lg:px-12 pt-24 sm:pt-28 md:pt-32 pb-10">
-
         <span className="inline-block text-white text-[11px] sm:text-xs font-semibold uppercase tracking-widest mb-4 sm:mb-6">
           ✦ Handcrafted in Nigeria
         </span>
