@@ -1,23 +1,20 @@
-import { NextRequest, NextResponse } from "next/server";
+import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
-const HAS_CLERK = !!process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
+const isProtectedRoute = createRouteMatcher([
+  "/account(.*)",
+  "/checkout(.*)",
+]);
 
-export async function proxy(req: NextRequest) {
-  if (!HAS_CLERK) return NextResponse.next();
-
-  const { clerkMiddleware, createRouteMatcher } = await import("@clerk/nextjs/server");
-
-  const isProtected = createRouteMatcher(["/account(.*)", "/checkout(.*)"]);
-  const handler = clerkMiddleware(async (auth, request) => {
-    if (isProtected(request)) await auth.protect();
-  });
-
-  return handler(req, {} as never);
-}
+export const proxy = clerkMiddleware(async (auth, req) => {
+  if (isProtectedRoute(req)) {
+    await auth.protect();
+  }
+});
 
 export const config = {
   matcher: [
     "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
     "/(api|trpc)(.*)",
+    "/__clerk/(.*)",
   ],
 };

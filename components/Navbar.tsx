@@ -110,8 +110,8 @@ export default function Navbar() {
                 </svg>
               </button>
 
-              {/* Auth — only rendered when Clerk is configured */}
-              {HAS_AUTH && mounted && <NavbarAuthSection atTop={atTop} />}
+              {/* Auth */}
+              {mounted && <NavbarAuthSection atTop={atTop} />}
 
               {/* Cart */}
               <button

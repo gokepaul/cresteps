@@ -1,16 +1,12 @@
+import { auth, currentUser } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 import Link from "next/link";
 
-async function getUser() {
-  const key = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
-  if (!key) return null;
-  const { auth, currentUser } = await import("@clerk/nextjs/server");
-  const { userId } = await auth();
-  if (!userId) return null;
-  return currentUser();
-}
-
 export default async function AccountPage() {
-  const user = await getUser();
+  const { userId } = await auth();
+  if (!userId) redirect("/sign-in");
+
+  const user = await currentUser();
 
   const accountLinks = [
     {

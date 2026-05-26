@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Inter } from "next/font/google";
+import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -24,29 +25,13 @@ export const metadata: Metadata = {
     "Shop premium handcrafted leather footwear, boots, slippers, and belts made in Nigeria. Free shipping on orders above ₦50,000.",
 };
 
-async function MaybeClerkProvider({ children }: { children: React.ReactNode }) {
-  const key = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
-  if (!key) return <>{children}</>;
-
-  const { ClerkProvider } = await import("@clerk/nextjs");
-  return (
-    <ClerkProvider
-      afterSignOutUrl="/"
-      signInUrl="/sign-in"
-      signUpUrl="/sign-up"
-    >
-      {children}
-    </ClerkProvider>
-  );
-}
-
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <MaybeClerkProvider>
+    <ClerkProvider afterSignOutUrl="/">
       <html
         lang="en"
         className={`${playfair.variable} ${inter.variable}`}
@@ -60,6 +45,6 @@ export default async function RootLayout({
           <CartDrawer />
         </body>
       </html>
-    </MaybeClerkProvider>
+    </ClerkProvider>
   );
 }
