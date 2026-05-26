@@ -1,93 +1,46 @@
-import Image from "next/image";
-
-const products = [
-  {
-    name: "Classic Oxford",
-    price: "₦35,000",
-    category: "Shoes",
-    image: "https://picsum.photos/seed/classic-oxford/400/300",
-    waLink: "https://wa.me/2341234567890?text=I'm interested in the Classic Oxford",
-  },
-  {
-    name: "Slide Slippers",
-    price: "₦18,000",
-    category: "Slippers",
-    image: "https://picsum.photos/seed/slide-slippers/400/300",
-    waLink: "https://wa.me/2341234567890?text=I'm interested in the Slide Slippers",
-  },
-  {
-    name: "Leather Belt",
-    price: "₦12,000",
-    category: "Belts",
-    image: "https://picsum.photos/seed/leather-belt/400/300",
-    waLink: "https://wa.me/2341234567890?text=I'm interested in the Leather Belt",
-  },
-];
+import Link from "next/link";
+import { getFeaturedProducts } from "@/lib/data/products";
+import ProductCard from "@/components/ProductCard";
 
 export default function FeaturedProducts() {
+  const featured = getFeaturedProducts().slice(0, 4);
+
   return (
-    <section className="bg-cream py-16 md:py-24">
+    <section className="bg-offwhite py-16 md:py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2
-            className="text-4xl md:text-5xl font-bold text-nearblack mb-3"
-            style={{ fontFamily: "var(--font-serif)" }}
+        <div className="flex items-end justify-between mb-10">
+          <div>
+            <p className="text-xs font-bold tracking-[0.25em] uppercase text-sienna mb-2">
+              Bestsellers
+            </p>
+            <h2
+              className="text-3xl md:text-4xl font-bold text-nearblack"
+              style={{ fontFamily: "var(--font-serif)" }}
+            >
+              Featured Products
+            </h2>
+          </div>
+          <Link
+            href="/shop"
+            className="hidden sm:inline-flex items-center gap-1.5 text-sm font-semibold text-nearblack hover:text-maroon transition-colors group"
           >
-            Featured Products
-          </h2>
-          <p className="text-gray-500 text-base max-w-md mx-auto">
-            Our most-loved pieces — handcrafted with genuine Nigerian leather.
-          </p>
+            View all
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4 group-hover:translate-x-0.5 transition-transform">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+            </svg>
+          </Link>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {products.map((product) => (
-            <div
-              key={product.name}
-              className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-gray-100"
-            >
-              <div className="relative h-56 overflow-hidden">
-                <Image
-                  src={product.image}
-                  alt={product.name}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-
-              <div className="p-5">
-                <span className="inline-block text-xs font-semibold text-sienna bg-sienna/10 px-2 py-0.5 rounded-full mb-2">
-                  {product.category}
-                </span>
-                <h3
-                  className="text-lg font-bold text-nearblack mb-1"
-                  style={{ fontFamily: "var(--font-serif)" }}
-                >
-                  {product.name}
-                </h3>
-                <p className="text-maroon font-semibold text-base mb-4">
-                  {product.price}
-                </p>
-                <div className="flex gap-2">
-                  <button
-                    disabled
-                    className="flex-1 bg-gold/20 text-gold font-semibold text-sm px-4 py-3 rounded-lg cursor-not-allowed opacity-70"
-                    title="Online cart coming soon"
-                  >
-                    Add to Cart
-                  </button>
-                  <a
-                    href={product.waLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1 text-center text-sm font-semibold text-maroon border border-maroon px-4 py-3 rounded-lg hover:bg-maroon hover:text-white transition-colors"
-                  >
-                    DM to Order
-                  </a>
-                </div>
-              </div>
-            </div>
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+          {featured.map((product) => (
+            <ProductCard key={product.id} product={product} />
           ))}
+        </div>
+
+        <div className="mt-8 text-center sm:hidden">
+          <Link href="/shop" className="text-sm font-bold tracking-widest uppercase text-maroon underline underline-offset-4">
+            View all products
+          </Link>
         </div>
       </div>
     </section>

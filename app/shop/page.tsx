@@ -1,187 +1,192 @@
 "use client";
 
-import { useState } from "react";
-import Image from "next/image";
+import { useState, useMemo } from "react";
+import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
+import { products } from "@/lib/data/products";
+import ProductCard from "@/components/ProductCard";
 import SizeGuideModal from "@/components/SizeGuideModal";
+import type { Category } from "@/lib/types";
 
-type Category = "All" | "Shoes" | "Slippers" | "Belts";
-
-const products = [
-  {
-    name: "Classic Oxford",
-    price: "₦35,000",
-    category: "Shoes" as Category,
-    image: "https://picsum.photos/seed/shop-oxford/400/300",
-    waLink: "https://wa.me/2341234567890?text=I'm interested in the Classic Oxford",
-  },
-  {
-    name: "Derby Brogues",
-    price: "₦42,000",
-    category: "Shoes" as Category,
-    image: "https://picsum.photos/seed/shop-derby/400/300",
-    waLink: "https://wa.me/2341234567890?text=I'm interested in the Derby Brogues",
-  },
-  {
-    name: "Chelsea Boot",
-    price: "₦55,000",
-    category: "Shoes" as Category,
-    image: "https://picsum.photos/seed/shop-chelsea/400/300",
-    waLink: "https://wa.me/2341234567890?text=I'm interested in the Chelsea Boot",
-  },
-  {
-    name: "Slide Slippers",
-    price: "₦18,000",
-    category: "Slippers" as Category,
-    image: "https://picsum.photos/seed/shop-slide/400/300",
-    waLink: "https://wa.me/2341234567890?text=I'm interested in the Slide Slippers",
-  },
-  {
-    name: "Mule Slippers",
-    price: "₦22,000",
-    category: "Slippers" as Category,
-    image: "https://picsum.photos/seed/shop-mule/400/300",
-    waLink: "https://wa.me/2341234567890?text=I'm interested in the Mule Slippers",
-  },
-  {
-    name: "Flat Sandal",
-    price: "₦15,000",
-    category: "Slippers" as Category,
-    image: "https://picsum.photos/seed/shop-sandal/400/300",
-    waLink: "https://wa.me/2341234567890?text=I'm interested in the Flat Sandal",
-  },
-  {
-    name: "Classic Belt",
-    price: "₦12,000",
-    category: "Belts" as Category,
-    image: "https://picsum.photos/seed/shop-belt-classic/400/300",
-    waLink: "https://wa.me/2341234567890?text=I'm interested in the Classic Belt",
-  },
-  {
-    name: "Wide Belt",
-    price: "₦16,000",
-    category: "Belts" as Category,
-    image: "https://picsum.photos/seed/shop-belt-wide/400/300",
-    waLink: "https://wa.me/2341234567890?text=I'm interested in the Wide Belt",
-  },
-  {
-    name: "Braided Belt",
-    price: "₦14,000",
-    category: "Belts" as Category,
-    image: "https://picsum.photos/seed/shop-belt-braided/400/300",
-    waLink: "https://wa.me/2341234567890?text=I'm interested in the Braided Belt",
-  },
+const CATEGORIES: Category[] = ["Shoes", "Boots", "Slippers", "Belts"];
+const SORT_OPTIONS = [
+  { value: "featured", label: "Featured" },
+  { value: "newest", label: "Newest" },
+  { value: "price-asc", label: "Price: Low to High" },
+  { value: "price-desc", label: "Price: High to Low" },
 ];
 
-const categories: Category[] = ["All", "Shoes", "Slippers", "Belts"];
+function ShopContent() {
+  const searchParams = useSearchParams();
+  const initialCategory = searchParams.get("category") as Category | null;
+  const initialQuery = searchParams.get("q") ?? "";
 
-export default function ShopPage() {
-  const [activeCategory, setActiveCategory] = useState<Category>("All");
+  const [activeCategories, setActiveCategories] = useState<Set<Category>>(
+    initialCategory ? new Set([initialCategory]) : new Set()
+  );
+  const [sort, setSort] = useState("featured");
+  const [query, setQuery] = useState(initialQuery);
   const [sizeGuideOpen, setSizeGuideOpen] = useState(false);
 
-  const filtered =
-    activeCategory === "All"
-      ? products
-      : products.filter((p) => p.category === activeCategory);
+  const toggleCategory = (cat: Category) => {
+    setActiveCategories((prev) => {
+      const next = new Set(prev);
+      next.has(cat) ? next.delete(cat) : next.add(cat);
+      return next;
+    });
+  };
+
+  const filtered = useMemo(() => {
+    let list = [...products];
+
+    if (activeCategories.size > 0) {
+      list = list.filter((p) => activeCategories.has(p.category));
+    }
+
+    if (query.trim()) {
+      const q = query.toLowerCase();
+      list = list.filter(
+        (p) =>
+          p.name.toLowerCase().includes(q) ||
+          p.category.toLowerCase().includes(q) ||
+          p.description.toLowerCase().includes(q)
+      );
+    }
+
+    switch (sort) {
+      case "newest":
+        list = list.filter((p) => p.isNew).concat(list.filter((p) => !p.isNew));
+        break;
+      case "price-asc":
+        list.sort((a, b) => (a.salePrice ?? a.price) - (b.salePrice ?? b.price));
+        break;
+      case "price-desc":
+        list.sort((a, b) => (b.salePrice ?? b.price) - (a.salePrice ?? a.price));
+        break;
+      default:
+        list = list.filter((p) => p.featured).concat(list.filter((p) => !p.featured));
+    }
+
+    return list;
+  }, [activeCategories, sort, query]);
 
   return (
     <div className="min-h-screen bg-offwhite">
-      {/* Header */}
-      <div className="bg-maroon pt-24 pb-14 text-center px-4">
+      {/* Header banner */}
+      <div className="bg-nearblack pt-24 pb-12 text-center px-4">
+        <p className="text-xs text-gold font-bold tracking-[0.3em] uppercase mb-3">
+          Handcrafted in Nigeria
+        </p>
         <h1
-          className="text-5xl font-bold text-white mb-2"
+          className="text-4xl md:text-5xl font-bold text-white"
           style={{ fontFamily: "var(--font-serif)" }}
         >
-          Shop
+          Shop All
         </h1>
-        <p className="text-gray-200 text-base">
-          All products handcrafted with genuine leather.
+        <p className="text-gray-400 mt-3 text-sm max-w-xs mx-auto">
+          {products.length} products · Full-grain leather · Made to last
         </p>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Controls row */}
-        <div className="flex flex-wrap items-center justify-between gap-4 mb-10">
-          {/* Category tabs */}
-          <div className="flex flex-wrap gap-2">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                className={`px-5 py-2 rounded-lg text-sm font-semibold transition-colors cursor-pointer border ${
-                  activeCategory === cat
-                    ? "bg-maroon text-white border-maroon"
-                    : "bg-white text-nearblack border-gray-200 hover:border-gold hover:text-gold"
-                }`}
-              >
-                {cat}
-                {activeCategory === cat && (
-                  <span className="ml-1.5 text-gold">—</span>
-                )}
-              </button>
-            ))}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        {/* Toolbar */}
+        <div className="flex flex-wrap items-start gap-4 mb-8">
+          {/* Search */}
+          <div className="relative flex-1 min-w-52">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+            </svg>
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search products…"
+              className="w-full pl-9 pr-4 py-2.5 text-sm bg-white border border-gray-200 rounded-lg focus:border-maroon focus:outline-none"
+            />
           </div>
 
-          {/* Size guide button */}
+          {/* Sort */}
+          <select
+            value={sort}
+            onChange={(e) => setSort(e.target.value)}
+            className="text-sm bg-white border border-gray-200 rounded-lg px-3 py-2.5 focus:border-maroon focus:outline-none cursor-pointer"
+          >
+            {SORT_OPTIONS.map((o) => (
+              <option key={o.value} value={o.value}>{o.label}</option>
+            ))}
+          </select>
+
+          {/* Size guide */}
           <button
             onClick={() => setSizeGuideOpen(true)}
-            className="text-sm font-medium text-maroon underline underline-offset-4 hover:text-gold transition-colors cursor-pointer"
+            className="text-sm font-medium text-maroon underline underline-offset-4 hover:text-gold transition-colors cursor-pointer py-2.5"
           >
             Size Guide
           </button>
         </div>
 
-        {/* Products grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filtered.map((product) => (
-            <div
-              key={product.name}
-              className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-gray-100"
+        {/* Category filters */}
+        <div className="flex flex-wrap gap-2 mb-8">
+          <button
+            onClick={() => setActiveCategories(new Set())}
+            className={`px-4 py-2 rounded-full text-xs font-bold tracking-widest uppercase transition-all border cursor-pointer ${
+              activeCategories.size === 0
+                ? "bg-nearblack text-white border-nearblack"
+                : "bg-white text-nearblack border-gray-200 hover:border-nearblack"
+            }`}
+          >
+            All
+          </button>
+          {CATEGORIES.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => toggleCategory(cat)}
+              className={`px-4 py-2 rounded-full text-xs font-bold tracking-widest uppercase transition-all border cursor-pointer ${
+                activeCategories.has(cat)
+                  ? "bg-maroon text-white border-maroon"
+                  : "bg-white text-nearblack border-gray-200 hover:border-maroon hover:text-maroon"
+              }`}
             >
-              <div className="relative h-56 overflow-hidden">
-                <Image
-                  src={product.image}
-                  alt={product.name}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-
-              <div className="p-5">
-                <span className="inline-block text-xs font-semibold text-sienna bg-sienna/10 px-2 py-0.5 rounded-full mb-2">
-                  {product.category}
-                </span>
-                <h3
-                  className="text-lg font-bold text-nearblack mb-1"
-                  style={{ fontFamily: "var(--font-serif)" }}
-                >
-                  {product.name}
-                </h3>
-                <p className="text-maroon font-semibold text-base mb-4">
-                  {product.price}
-                </p>
-                <div className="flex gap-2">
-                  <button className="flex-1 bg-gold hover:bg-[#b37518] text-nearblack font-semibold text-sm px-4 py-3 rounded-lg transition-colors cursor-pointer">
-                    View Details
-                  </button>
-                  <a
-                    href={product.waLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1 text-center text-sm font-semibold text-maroon border border-maroon px-4 py-3 rounded-lg hover:bg-maroon hover:text-white transition-colors"
-                  >
-                    DM to Order
-                  </a>
-                </div>
-              </div>
-            </div>
+              {cat}
+            </button>
           ))}
         </div>
+
+        {/* Results count */}
+        <p className="text-xs text-gray-400 mb-6">
+          {filtered.length} product{filtered.length !== 1 && "s"}
+          {query && ` for "${query}"`}
+        </p>
+
+        {/* Grid */}
+        {filtered.length === 0 ? (
+          <div className="text-center py-20 text-gray-400">
+            <p className="text-lg mb-2">No products found</p>
+            <button
+              onClick={() => { setActiveCategories(new Set()); setQuery(""); }}
+              className="text-sm text-maroon underline underline-offset-4 cursor-pointer"
+            >
+              Clear filters
+            </button>
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+            {filtered.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        )}
       </div>
 
-      {/* Size guide modal */}
-      {sizeGuideOpen && (
-        <SizeGuideModal onClose={() => setSizeGuideOpen(false)} />
-      )}
+      {sizeGuideOpen && <SizeGuideModal onClose={() => setSizeGuideOpen(false)} />}
     </div>
+  );
+}
+
+export default function ShopPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-offwhite pt-24 flex items-center justify-center"><p className="text-gray-400">Loading…</p></div>}>
+      <ShopContent />
+    </Suspense>
   );
 }
