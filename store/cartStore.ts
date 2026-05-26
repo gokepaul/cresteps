@@ -2,14 +2,14 @@
 
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import type { CartItem, Product } from "@/lib/types";
+import type { CartItem, Product, ProductColor } from "@/lib/types";
 
 type CartStore = {
   items: CartItem[];
   isOpen: boolean;
-  addItem: (product: Product, size: string) => void;
-  removeItem: (productId: string, size: string) => void;
-  updateQuantity: (productId: string, size: string, quantity: number) => void;
+  addItem: (product: Product, size: string, color: ProductColor) => void;
+  removeItem: (productId: string, size: string, colorName: string) => void;
+  updateQuantity: (productId: string, size: string, colorName: string, quantity: number) => void;
   clearCart: () => void;
   openCart: () => void;
   closeCart: () => void;
@@ -18,47 +18,61 @@ type CartStore = {
   subtotal: () => number;
 };
 
+function itemKey(productId: string, size: string, colorName: string) {
+  return `${productId}|${size}|${colorName}`;
+}
+
 export const useCartStore = create<CartStore>()(
   persist(
     (set, get) => ({
       items: [],
       isOpen: false,
 
-      addItem: (product, size) => {
+      addItem: (product, size, color) => {
         const items = get().items;
         const existing = items.find(
-          (i) => i.product.id === product.id && i.size === size
+          (i) =>
+            i.product.id === product.id &&
+            i.size === size &&
+            i.color.name === color.name
         );
         if (existing) {
           set({
             items: items.map((i) =>
-              i.product.id === product.id && i.size === size
+              itemKey(i.product.id, i.size, i.color.name) ===
+              itemKey(product.id, size, color.name)
                 ? { ...i, quantity: i.quantity + 1 }
                 : i
             ),
             isOpen: true,
           });
         } else {
-          set({ items: [...items, { product, size, quantity: 1 }], isOpen: true });
+          set({
+            items: [...items, { product, size, color, quantity: 1 }],
+            isOpen: true,
+          });
         }
       },
 
-      removeItem: (productId, size) => {
+      removeItem: (productId, size, colorName) => {
         set({
           items: get().items.filter(
-            (i) => !(i.product.id === productId && i.size === size)
+            (i) =>
+              itemKey(i.product.id, i.size, i.color.name) !==
+              itemKey(productId, size, colorName)
           ),
         });
       },
 
-      updateQuantity: (productId, size, quantity) => {
+      updateQuantity: (productId, size, colorName, quantity) => {
         if (quantity <= 0) {
-          get().removeItem(productId, size);
+          get().removeItem(productId, size, colorName);
           return;
         }
         set({
           items: get().items.map((i) =>
-            i.product.id === productId && i.size === size
+            itemKey(i.product.id, i.size, i.color.name) ===
+            itemKey(productId, size, colorName)
               ? { ...i, quantity }
               : i
           ),

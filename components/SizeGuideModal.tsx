@@ -32,7 +32,7 @@ export default function SizeGuideModal({ onClose }: SizeGuideModalProps) {
         {/* Close button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-nearblack transition-colors cursor-pointer"
+          className="absolute top-4 right-4 text-muted hover:text-nearblack transition-colors cursor-pointer"
           aria-label="Close size guide"
         >
           <svg
@@ -53,7 +53,7 @@ export default function SizeGuideModal({ onClose }: SizeGuideModalProps) {
         >
           Size Guide
         </h2>
-        <p className="text-sm text-gray-500 mb-5">
+        <p className="text-sm text-muted mb-5">
           Measure your foot from heel to toe in centimetres.
         </p>
 
@@ -83,7 +83,7 @@ export default function SizeGuideModal({ onClose }: SizeGuideModalProps) {
           </table>
         </div>
 
-        <p className="text-xs text-gray-400 mt-4">
+        <p className="text-xs text-muted mt-4">
           * Sizes may vary slightly between styles. When in doubt, size up.
         </p>
       </div>

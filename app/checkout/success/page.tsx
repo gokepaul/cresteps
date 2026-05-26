@@ -67,7 +67,7 @@ function SuccessContent() {
       <div className="min-h-screen bg-offwhite pt-24 flex items-center justify-center">
         <div className="text-center">
           <div className="w-12 h-12 border-4 border-maroon border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-gray-500 text-sm">Verifying your payment…</p>
+          <p className="text-muted text-sm">Verifying your payment…</p>
         </div>
       </div>
     );
@@ -83,7 +83,7 @@ function SuccessContent() {
         </div>
         <div>
           <h1 className="text-2xl font-bold text-nearblack mb-2" style={{ fontFamily: "var(--font-serif)" }}>Payment Not Confirmed</h1>
-          <p className="text-gray-500 text-sm">We couldn't verify your payment. If you were charged, please contact us on WhatsApp with your reference: <strong>{reference}</strong></p>
+          <p className="text-muted text-sm">We couldn't verify your payment. If you were charged, please contact us on WhatsApp with your reference: <strong className="text-nearblack">{reference}</strong></p>
         </div>
         <div className="flex gap-3">
           <Link href="/cart" className="px-6 py-3 bg-white border border-gray-200 rounded-xl text-sm font-semibold hover:border-maroon transition-colors">Back to Cart</Link>
@@ -106,28 +106,43 @@ function SuccessContent() {
         <h1 className="text-3xl font-bold text-nearblack mb-3" style={{ fontFamily: "var(--font-serif)" }}>
           Order Confirmed!
         </h1>
-        <p className="text-gray-500 text-sm mb-8">
+        <p className="text-muted text-sm mb-8">
           Thank you for your purchase. We'll send a confirmation to{" "}
-          <strong>{order?.shippingInfo?.email}</strong>. Your handcrafted footwear is being prepared.
+          <strong className="text-nearblack">{order?.shippingInfo?.email}</strong>. Your handcrafted footwear is being prepared.
         </p>
 
         {/* Order details */}
         <div className="bg-white rounded-2xl border border-gray-100 p-6 text-left mb-8">
           <div className="flex justify-between text-sm mb-4">
-            <span className="text-gray-500">Order ID</span>
-            <span className="font-semibold font-mono text-xs">{order?.id}</span>
+            <span className="text-muted">Order ID</span>
+            <span className="font-semibold font-mono text-xs text-nearblack">{order?.id}</span>
           </div>
           <div className="flex justify-between text-sm mb-4">
-            <span className="text-gray-500">Reference</span>
-            <span className="font-semibold font-mono text-xs">{reference}</span>
+            <span className="text-muted">Reference</span>
+            <span className="font-semibold font-mono text-xs text-nearblack">{reference}</span>
           </div>
           <div className="flex justify-between text-sm mb-4">
-            <span className="text-gray-500">Total Paid</span>
+            <span className="text-muted">Total Paid</span>
             <span className="font-bold text-maroon">{order?.total ? formatPrice(order.total) : "—"}</span>
           </div>
-          <div className="flex justify-between text-sm">
-            <span className="text-gray-500">Delivery to</span>
-            <span className="font-semibold text-right max-w-[60%]">
+          {/* Items summary */}
+          {order?.items && order.items.length > 0 && (
+            <div className="border-t border-gray-100 pt-4 mb-4 space-y-2">
+              {order.items.map((item, i) => (
+                <div key={i} className="flex items-center justify-between text-sm">
+                  <div className="flex items-center gap-2 min-w-0">
+                    <span className="w-2.5 h-2.5 rounded-full border border-gray-300 shrink-0" style={{ backgroundColor: item.color.hex }} />
+                    <span className="text-nearblack font-medium truncate">{item.product.name}</span>
+                    <span className="text-muted shrink-0">· EU {item.size} · ×{item.quantity}</span>
+                  </div>
+                  <span className="font-semibold text-nearblack shrink-0 ml-2">{formatPrice((item.product.salePrice ?? item.product.price) * item.quantity)}</span>
+                </div>
+              ))}
+            </div>
+          )}
+          <div className="flex justify-between text-sm border-t border-gray-100 pt-4">
+            <span className="text-muted">Delivery to</span>
+            <span className="font-semibold text-nearblack text-right max-w-[60%]">
               {order?.shippingInfo?.city}, {order?.shippingInfo?.state}
             </span>
           </div>
@@ -148,7 +163,7 @@ function SuccessContent() {
 
 export default function SuccessPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-offwhite pt-24 flex items-center justify-center"><p className="text-gray-400">Loading…</p></div>}>
+    <Suspense fallback={<div className="min-h-screen bg-offwhite pt-24 flex items-center justify-center"><p className="text-muted">Loading…</p></div>}>
       <SuccessContent />
     </Suspense>
   );

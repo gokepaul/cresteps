@@ -90,7 +90,7 @@ export default function ReviewsPage() {
           <p className="text-2xl font-bold text-nearblack">
             5.0 / 5.0
           </p>
-          <p className="text-gray-500 text-sm mt-1">
+          <p className="text-muted text-sm mt-1">
             Based on {reviews.length} reviews
           </p>
         </div>
@@ -111,7 +111,7 @@ export default function ReviewsPage() {
                   <p className="font-semibold text-nearblack text-sm">
                     {review.name}
                   </p>
-                  <p className="text-gray-500 text-xs">{review.location}</p>
+                  <p className="text-muted text-xs">{review.location}</p>
                 </div>
               </div>
 

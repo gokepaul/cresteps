@@ -122,7 +122,7 @@ export default function AboutPage() {
             >
               How We Make It
             </h2>
-            <p className="text-gray-500">Our 3-step craft process.</p>
+            <p className="text-muted">Our 3-step craft process.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -162,7 +162,7 @@ export default function AboutPage() {
             >
               Our Values
             </h2>
-            <p className="text-gray-500">What guides every stitch we make.</p>
+            <p className="text-muted">What guides every stitch we make.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

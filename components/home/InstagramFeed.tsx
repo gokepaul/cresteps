@@ -12,7 +12,7 @@ const placeholderImages = [
 export default function InstagramFeed() {
   return (
     <section className="bg-cream py-16 md:py-24">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="text-center mb-10">
           <h2
             className="text-4xl md:text-5xl font-bold text-nearblack mb-3"
@@ -20,7 +20,7 @@ export default function InstagramFeed() {
           >
             Follow Us
           </h2>
-          <p className="text-gray-500 text-base">@cresteps</p>
+          <p className="text-muted text-base">@cresteps</p>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 mb-10">

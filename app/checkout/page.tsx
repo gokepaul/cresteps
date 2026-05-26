@@ -49,7 +49,6 @@ export default function CheckoutPage() {
     e.preventDefault();
     setError("");
 
-    // Basic validation
     const required = Object.entries(form).filter(([, v]) => !v.trim());
     if (required.length > 0) {
       setError("Please fill in all required fields.");
@@ -63,11 +62,12 @@ export default function CheckoutPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email: form.email,
-          amount: total * 100, // Paystack uses kobo
+          amount: total * 100,
           metadata: {
             items: items.map((i) => ({
               name: i.product.name,
               size: i.size,
+              color: i.color.name,
               quantity: i.quantity,
               price: i.product.salePrice ?? i.product.price,
             })),
@@ -83,7 +83,6 @@ export default function CheckoutPage() {
         throw new Error(data.message ?? "Failed to initialize payment.");
       }
 
-      // Save order intent to localStorage before redirecting
       const orderIntent = {
         items,
         subtotal: sub,
@@ -95,7 +94,6 @@ export default function CheckoutPage() {
       };
       localStorage.setItem("pending_order", JSON.stringify(orderIntent));
 
-      // Redirect to Paystack
       window.location.href = data.authorization_url;
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
@@ -104,8 +102,8 @@ export default function CheckoutPage() {
   };
 
   return (
-    <div className="min-h-screen bg-offwhite pt-20">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div className="min-h-screen bg-offwhite pt-20 pb-32 lg:pb-10">
+      <div className="max-w-5xl mx-auto px-6 sm:px-8 lg:px-12 py-10">
         <h1 className="text-3xl font-bold text-nearblack mb-8" style={{ fontFamily: "var(--font-serif)" }}>
           Checkout
         </h1>
@@ -127,26 +125,26 @@ export default function CheckoutPage() {
                     { name: "city", label: "City", type: "text", colSpan: 1 },
                   ].map(({ name, label, type, colSpan }) => (
                     <div key={name} className={colSpan === 2 ? "sm:col-span-2" : ""}>
-                      <label className="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">{label}</label>
+                      <label className="block text-xs font-semibold text-muted mb-1.5 uppercase tracking-wider">{label}</label>
                       <input
                         type={type}
                         name={name}
                         value={form[name as keyof ShippingInfo]}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-3 text-sm border border-gray-200 rounded-xl focus:border-maroon focus:outline-none bg-offwhite"
+                        className="w-full px-4 py-3 text-sm text-nearblack border border-gray-200 rounded-xl focus:border-maroon focus:outline-none bg-offwhite placeholder:text-muted"
                       />
                     </div>
                   ))}
 
                   <div>
-                    <label className="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">State</label>
+                    <label className="block text-xs font-semibold text-muted mb-1.5 uppercase tracking-wider">State</label>
                     <select
                       name="state"
                       value={form.state}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 text-sm border border-gray-200 rounded-xl focus:border-maroon focus:outline-none bg-offwhite cursor-pointer"
+                      className="w-full px-4 py-3 text-sm text-nearblack border border-gray-200 rounded-xl focus:border-maroon focus:outline-none bg-offwhite cursor-pointer"
                     >
                       <option value="">Select state</option>
                       {NIGERIAN_STATES.map((s) => (
@@ -170,21 +168,21 @@ export default function CheckoutPage() {
                 </svg>
                 <div>
                   <p className="text-sm font-semibold text-nearblack">Secure Payment via Paystack</p>
-                  <p className="text-xs text-gray-500 mt-0.5">You'll be redirected to Paystack's secure payment page to complete your order. We accept cards, bank transfer, and USSD.</p>
+                  <p className="text-xs text-muted mt-0.5">You'll be redirected to Paystack's secure payment page to complete your order. We accept cards, bank transfer, and USSD.</p>
                 </div>
               </div>
             </div>
 
-            {/* Order summary */}
+            {/* Order summary sidebar */}
             <div className="lg:col-span-2">
               <div className="bg-white rounded-2xl border border-gray-100 p-6 sticky top-24">
                 <h2 className="text-base font-bold text-nearblack mb-5">Order Summary</h2>
 
-                <div className="space-y-3 mb-5 max-h-64 overflow-y-auto">
+                <div className="space-y-3 mb-5 max-h-64 overflow-y-auto pr-1">
                   {items.map((item) => {
                     const price = item.product.salePrice ?? item.product.price;
                     return (
-                      <div key={`${item.product.id}-${item.size}`} className="flex gap-3">
+                      <div key={`${item.product.id}-${item.size}-${item.color.name}`} className="flex gap-3">
                         <div className="relative w-14 h-16 rounded-lg overflow-hidden bg-gray-50 shrink-0">
                           <Image src={item.product.images[0]} alt={item.product.name} fill className="object-cover" />
                           <span className="absolute -top-1 -right-1 w-5 h-5 bg-maroon text-white text-[10px] font-bold rounded-full flex items-center justify-center">
@@ -193,7 +191,10 @@ export default function CheckoutPage() {
                         </div>
                         <div className="flex-1 min-w-0">
                           <p className="text-sm font-semibold text-nearblack truncate" style={{ fontFamily: "var(--font-serif)" }}>{item.product.name}</p>
-                          <p className="text-xs text-gray-400">Size: {item.size}</p>
+                          <div className="flex items-center gap-1.5 mt-0.5">
+                            <span className="w-2.5 h-2.5 rounded-full border border-gray-300 shrink-0" style={{ backgroundColor: item.color.hex }} />
+                            <span className="text-xs text-muted">{item.color.name} · EU {item.size}</span>
+                          </div>
                           <p className="text-sm font-bold text-maroon mt-0.5">{formatPrice(price * item.quantity)}</p>
                         </div>
                       </div>
@@ -203,21 +204,22 @@ export default function CheckoutPage() {
 
                 <div className="border-t border-gray-100 pt-4 space-y-2.5 text-sm mb-5">
                   <div className="flex justify-between">
-                    <span className="text-gray-500">Subtotal</span>
-                    <span className="font-semibold">{formatPrice(sub)}</span>
+                    <span className="text-muted">Subtotal</span>
+                    <span className="font-semibold text-nearblack">{formatPrice(sub)}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-500">Shipping</span>
-                    <span className={freeShipping ? "text-green-600 font-semibold" : "font-semibold"}>
+                    <span className="text-muted">Shipping</span>
+                    <span className={freeShipping ? "text-green-700 font-semibold" : "font-semibold text-nearblack"}>
                       {freeShipping ? "Free" : formatPrice(shipping)}
                     </span>
                   </div>
                   <div className="flex justify-between border-t border-gray-100 pt-2.5 font-bold text-base">
-                    <span>Total</span>
+                    <span className="text-nearblack">Total</span>
                     <span className="text-maroon">{formatPrice(total)}</span>
                   </div>
                 </div>
 
+                {/* Desktop pay button */}
                 <button
                   type="submit"
                   disabled={loading}
@@ -229,6 +231,23 @@ export default function CheckoutPage() {
             </div>
           </div>
         </form>
+      </div>
+
+      {/* Mobile sticky pay button */}
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 px-6 py-4 z-30">
+        <div className="flex items-center justify-between mb-3">
+          <span className="text-sm text-muted">Total</span>
+          <span className="text-base font-bold text-maroon">{formatPrice(total)}</span>
+        </div>
+        <button
+          form="checkout-form"
+          type="submit"
+          disabled={loading}
+          onClick={handleSubmit}
+          className="w-full py-4 text-sm font-bold tracking-widest uppercase bg-maroon text-white rounded-xl hover:bg-nearblack transition-colors disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
+        >
+          {loading ? "Redirecting to Paystack…" : `Pay ${formatPrice(total)}`}
+        </button>
       </div>
     </div>
   );

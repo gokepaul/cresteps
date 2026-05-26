@@ -7,7 +7,7 @@ export default function FeaturedProducts() {
 
   return (
     <section className="bg-offwhite py-16 md:py-24">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="flex items-end justify-between mb-10">
           <div>
             <p className="text-xs font-bold tracking-[0.25em] uppercase text-sienna mb-2">

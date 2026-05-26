@@ -31,7 +31,7 @@ function Stars({ count }: { count: number }) {
 export default function ReviewStrip() {
   return (
     <section className="bg-offwhite py-16 md:py-24">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="text-center mb-12">
           <h2
             className="text-4xl md:text-5xl font-bold text-nearblack mb-3"
@@ -39,7 +39,7 @@ export default function ReviewStrip() {
           >
             What Customers Say
           </h2>
-          <p className="text-gray-500 text-base">
+          <p className="text-muted text-base">
             Real reviews from real people.
           </p>
         </div>
@@ -51,7 +51,7 @@ export default function ReviewStrip() {
               className="bg-white rounded-2xl shadow-sm p-6 border border-gray-100 border-l-4 border-l-sienna"
             >
               <Stars count={review.rating} />
-              <p className="text-gray-600 text-sm leading-relaxed mb-4">
+              <p className="text-muted text-sm leading-relaxed mb-4">
                 &ldquo;{review.text}&rdquo;
               </p>
               <p className="text-nearblack font-semibold text-sm">

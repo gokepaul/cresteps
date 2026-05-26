@@ -1,5 +1,10 @@
 export type Category = "Shoes" | "Slippers" | "Belts" | "Boots";
 
+export type ProductColor = {
+  name: string;
+  hex: string;
+};
+
 export type Product = {
   id: string;
   slug: string;
@@ -9,6 +14,7 @@ export type Product = {
   category: Category;
   images: string[];
   sizes: string[];
+  colors: ProductColor[];
   description: string;
   features: string[];
   inStock: boolean;
@@ -20,6 +26,7 @@ export type CartItem = {
   product: Product;
   quantity: number;
   size: string;
+  color: ProductColor;
 };
 
 export type ShippingInfo = {

@@ -232,7 +232,7 @@ export default function CustomOrdersPage() {
                     <p className="text-sm font-semibold text-nearblack mb-1">
                       Perfect fit, every time
                     </p>
-                    <p className="text-xs text-gray-500 leading-relaxed">
+                    <p className="text-xs text-muted leading-relaxed">
                       We make to your exact measurements so there&apos;s no
                       breaking-in period needed.
                     </p>
@@ -244,7 +244,7 @@ export default function CustomOrdersPage() {
                     <p className="text-sm font-semibold text-nearblack mb-1">
                       Choose your leather & colour
                     </p>
-                    <p className="text-xs text-gray-500 leading-relaxed">
+                    <p className="text-xs text-muted leading-relaxed">
                       Pick from our range of genuine leathers — tan, black,
                       cognac, chocolate, and more.
                     </p>
@@ -256,7 +256,7 @@ export default function CustomOrdersPage() {
                     <p className="text-sm font-semibold text-nearblack mb-1">
                       Unique to you
                     </p>
-                    <p className="text-xs text-gray-500 leading-relaxed">
+                    <p className="text-xs text-muted leading-relaxed">
                       Custom orders come with your initials stamped inside the
                       shoe at no extra cost.
                     </p>
@@ -265,7 +265,7 @@ export default function CustomOrdersPage() {
               </ul>
 
               <div className="mt-8 pt-6 border-t border-gold/20">
-                <p className="text-xs text-gray-500 mb-3">
+                <p className="text-xs text-muted mb-3">
                   Prefer to discuss first?
                 </p>
                 <a

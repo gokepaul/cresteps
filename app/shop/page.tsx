@@ -88,12 +88,12 @@ function ShopContent() {
         </p>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-10">
         {/* Toolbar */}
         <div className="flex flex-wrap items-start gap-4 mb-8">
           {/* Search */}
           <div className="relative flex-1 min-w-52">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted">
               <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
             </svg>
             <input
@@ -119,7 +119,7 @@ function ShopContent() {
           {/* Size guide */}
           <button
             onClick={() => setSizeGuideOpen(true)}
-            className="text-sm font-medium text-maroon underline underline-offset-4 hover:text-gold transition-colors cursor-pointer py-2.5"
+            className="text-sm font-medium text-maroon underline underline-offset-4 hover:text-maroon-dark transition-colors cursor-pointer py-2.5"
           >
             Size Guide
           </button>
@@ -153,14 +153,14 @@ function ShopContent() {
         </div>
 
         {/* Results count */}
-        <p className="text-xs text-gray-400 mb-6">
+        <p className="text-xs text-muted mb-6">
           {filtered.length} product{filtered.length !== 1 && "s"}
           {query && ` for "${query}"`}
         </p>
 
         {/* Grid */}
         {filtered.length === 0 ? (
-          <div className="text-center py-20 text-gray-400">
+          <div className="text-center py-20 text-muted">
             <p className="text-lg mb-2">No products found</p>
             <button
               onClick={() => { setActiveCategories(new Set()); setQuery(""); }}
@@ -185,7 +185,7 @@ function ShopContent() {
 
 export default function ShopPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-offwhite pt-24 flex items-center justify-center"><p className="text-gray-400">Loading…</p></div>}>
+    <Suspense fallback={<div className="min-h-screen bg-offwhite pt-24 flex items-center justify-center"><p className="text-muted">Loading…</p></div>}>
       <ShopContent />
     </Suspense>
   );

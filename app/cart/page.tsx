@@ -34,7 +34,7 @@ export default function CartPage() {
         </svg>
         <div className="text-center">
           <h1 className="text-2xl font-bold text-nearblack mb-2" style={{ fontFamily: "var(--font-serif)" }}>Your cart is empty</h1>
-          <p className="text-gray-400 text-sm">Looks like you haven't added anything yet.</p>
+          <p className="text-muted text-sm">Looks like you haven't added anything yet.</p>
         </div>
         <Link href="/shop" className="bg-maroon text-white text-sm font-bold tracking-widest uppercase px-8 py-3.5 rounded-xl hover:bg-nearblack transition-colors">
           Shop Now
@@ -44,15 +44,15 @@ export default function CartPage() {
   }
 
   return (
-    <div className="min-h-screen bg-offwhite pt-20">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div className="min-h-screen bg-offwhite pt-20 pb-32 lg:pb-10">
+      <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12 py-10">
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-3xl font-bold text-nearblack" style={{ fontFamily: "var(--font-serif)" }}>
             Shopping Cart
           </h1>
           <button
             onClick={clearCart}
-            className="text-xs text-gray-400 hover:text-maroon transition-colors cursor-pointer underline underline-offset-4"
+            className="text-xs text-muted hover:text-maroon transition-colors cursor-pointer underline underline-offset-4"
           >
             Clear all
           </button>
@@ -65,8 +65,8 @@ export default function CartPage() {
               const price = item.product.salePrice ?? item.product.price;
               return (
                 <div
-                  key={`${item.product.id}-${item.size}`}
-                  className="flex gap-4 bg-white rounded-2xl p-4 border border-gray-100"
+                  key={`${item.product.id}-${item.size}-${item.color.name}`}
+                  className="flex gap-4 bg-white rounded-2xl p-5 border border-gray-100"
                 >
                   <Link href={`/shop/${item.product.slug}`} className="relative w-24 h-28 rounded-xl overflow-hidden bg-gray-50 shrink-0">
                     <Image src={item.product.images[0]} alt={item.product.name} fill className="object-cover" />
@@ -81,12 +81,20 @@ export default function CartPage() {
                             {item.product.name}
                           </h3>
                         </Link>
-                        <p className="text-xs text-gray-400 mt-0.5">Size: {item.size}</p>
+                        {/* Color + size */}
+                        <div className="flex items-center gap-2 mt-1 flex-wrap">
+                          <span className="inline-flex items-center gap-1.5 text-xs text-muted">
+                            <span className="w-3 h-3 rounded-full border border-gray-300 shrink-0" style={{ backgroundColor: item.color.hex }} />
+                            {item.color.name}
+                          </span>
+                          <span className="text-gray-300 text-xs">·</span>
+                          <span className="text-xs text-muted">EU {item.size}</span>
+                        </div>
                       </div>
                       <button
-                        onClick={() => removeItem(item.product.id, item.size)}
+                        onClick={() => removeItem(item.product.id, item.size, item.color.name)}
                         className="text-gray-300 hover:text-maroon transition-colors cursor-pointer shrink-0 mt-0.5"
-                        aria-label="Remove"
+                        aria-label="Remove item"
                       >
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -96,14 +104,14 @@ export default function CartPage() {
 
                     <div className="flex items-center justify-between mt-3">
                       <div className="flex items-center border border-gray-200 rounded-lg overflow-hidden">
-                        <button onClick={() => updateQuantity(item.product.id, item.size, item.quantity - 1)} className="w-8 h-8 flex items-center justify-center hover:bg-gray-100 text-sm cursor-pointer">−</button>
-                        <span className="w-10 text-center text-sm font-semibold">{item.quantity}</span>
-                        <button onClick={() => updateQuantity(item.product.id, item.size, item.quantity + 1)} className="w-8 h-8 flex items-center justify-center hover:bg-gray-100 text-sm cursor-pointer">+</button>
+                        <button onClick={() => updateQuantity(item.product.id, item.size, item.color.name, item.quantity - 1)} className="w-8 h-8 flex items-center justify-center hover:bg-gray-100 text-sm cursor-pointer text-nearblack">−</button>
+                        <span className="w-10 text-center text-sm font-semibold text-nearblack">{item.quantity}</span>
+                        <button onClick={() => updateQuantity(item.product.id, item.size, item.color.name, item.quantity + 1)} className="w-8 h-8 flex items-center justify-center hover:bg-gray-100 text-sm cursor-pointer text-nearblack">+</button>
                       </div>
 
                       <div className="text-right">
                         {item.product.salePrice && (
-                          <p className="text-xs text-gray-400 line-through">{formatPrice(item.product.price * item.quantity)}</p>
+                          <p className="text-xs text-muted line-through">{formatPrice(item.product.price * item.quantity)}</p>
                         )}
                         <p className="text-base font-bold text-maroon">{formatPrice(price * item.quantity)}</p>
                       </div>
@@ -121,17 +129,17 @@ export default function CartPage() {
 
               <div className="space-y-3 text-sm mb-5">
                 <div className="flex justify-between">
-                  <span className="text-gray-500">Subtotal ({items.reduce((a, i) => a + i.quantity, 0)} items)</span>
-                  <span className="font-semibold">{formatPrice(sub)}</span>
+                  <span className="text-muted">Subtotal ({items.reduce((a, i) => a + i.quantity, 0)} items)</span>
+                  <span className="font-semibold text-nearblack">{formatPrice(sub)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-500">Shipping</span>
-                  <span className={freeShipping ? "text-green-600 font-semibold" : "font-semibold"}>
+                  <span className="text-muted">Shipping</span>
+                  <span className={freeShipping ? "text-green-700 font-semibold" : "font-semibold text-nearblack"}>
                     {freeShipping ? "Free" : formatPrice(shipping)}
                   </span>
                 </div>
                 {!freeShipping && (
-                  <p className="text-xs text-gray-400">
+                  <p className="text-xs text-muted">
                     Add {formatPrice(50000 - sub)} more for free shipping
                   </p>
                 )}
@@ -139,7 +147,7 @@ export default function CartPage() {
 
               <div className="border-t border-gray-100 pt-4 mb-6">
                 <div className="flex justify-between text-base font-bold">
-                  <span>Total</span>
+                  <span className="text-nearblack">Total</span>
                   <span className="text-maroon">{formatPrice(total)}</span>
                 </div>
               </div>
@@ -153,13 +161,27 @@ export default function CartPage() {
 
               <Link
                 href="/shop"
-                className="block w-full text-center text-sm text-gray-400 hover:text-maroon transition-colors mt-4"
+                className="block w-full text-center text-sm text-muted hover:text-maroon transition-colors mt-4"
               >
                 ← Continue Shopping
               </Link>
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Mobile sticky CTA */}
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 px-6 py-4 z-30">
+        <div className="flex items-center justify-between mb-3">
+          <span className="text-sm text-muted">Total</span>
+          <span className="text-base font-bold text-maroon">{formatPrice(total)}</span>
+        </div>
+        <Link
+          href="/checkout"
+          className="block w-full text-center text-sm font-bold tracking-widest uppercase bg-maroon text-white py-4 rounded-xl hover:bg-nearblack transition-colors"
+        >
+          Proceed to Checkout
+        </Link>
       </div>
     </div>
   );

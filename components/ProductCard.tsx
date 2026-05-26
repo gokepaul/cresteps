@@ -51,7 +51,7 @@ export default function ProductCard({ product }: { product: Product }) {
         {/* Wishlist button */}
         <button
           onClick={(e) => { e.preventDefault(); toggle(product); }}
-          className="absolute top-3 right-3 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer hover:scale-110 active:scale-95 transition-transform"
+          className="absolute top-3 right-3 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer hover:scale-110 active:scale-95"
           aria-label={wishlisted ? "Remove from wishlist" : "Add to wishlist"}
         >
           <svg
@@ -90,7 +90,7 @@ export default function ProductCard({ product }: { product: Product }) {
               <span className="text-sm font-bold text-maroon">
                 {formatPrice(product.salePrice)}
               </span>
-              <span className="text-xs text-gray-400 line-through">
+              <span className="text-xs text-muted line-through">
                 {formatPrice(product.price)}
               </span>
             </>
@@ -100,6 +100,23 @@ export default function ProductCard({ product }: { product: Product }) {
             </span>
           )}
         </div>
+
+        {/* Color swatches */}
+        {product.colors.length > 0 && (
+          <div className="flex items-center gap-1.5 mt-2">
+            {product.colors.slice(0, 4).map((c) => (
+              <span
+                key={c.name}
+                title={c.name}
+                className="w-3.5 h-3.5 rounded-full border border-gray-300 shrink-0"
+                style={{ backgroundColor: c.hex }}
+              />
+            ))}
+            {product.colors.length > 4 && (
+              <span className="text-[10px] text-muted">+{product.colors.length - 4}</span>
+            )}
+          </div>
+        )}
 
         <Link
           href={`/shop/${product.slug}`}

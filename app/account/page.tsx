@@ -50,7 +50,7 @@ export default async function AccountPage() {
             Welcome back{user?.firstName ? `, ${user.firstName}` : ""}
           </h1>
           {user?.emailAddresses[0]?.emailAddress && (
-            <p className="text-sm text-gray-500 mt-1">{user.emailAddresses[0].emailAddress}</p>
+            <p className="text-sm text-muted mt-1">{user.emailAddresses[0].emailAddress}</p>
           )}
         </div>
 
@@ -61,13 +61,13 @@ export default async function AccountPage() {
               href={link.href}
               className="bg-white rounded-2xl border border-gray-100 p-6 hover:border-maroon hover:shadow-sm transition-all group"
             >
-              <div className="text-gray-400 group-hover:text-maroon transition-colors mb-4">
+              <div className="text-muted group-hover:text-maroon transition-colors mb-4">
                 {link.icon}
               </div>
               <h3 className="text-base font-bold text-nearblack group-hover:text-maroon transition-colors mb-1" style={{ fontFamily: "var(--font-serif)" }}>
                 {link.title}
               </h3>
-              <p className="text-xs text-gray-400">{link.description}</p>
+              <p className="text-xs text-muted">{link.description}</p>
             </Link>
           ))}
         </div>
